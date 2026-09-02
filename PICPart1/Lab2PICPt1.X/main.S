@@ -38,7 +38,6 @@ Setup:
     ; add device setup here
     goto Main
     
-    
 
 Main:
     // main code goes here
