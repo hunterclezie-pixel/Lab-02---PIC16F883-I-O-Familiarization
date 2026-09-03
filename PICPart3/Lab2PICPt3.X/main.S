@@ -38,10 +38,12 @@ Setup:
     ; add device setup here
     BCF 0x03,6 ; Sets Bank 0
     BCF 0x03,5 ; Sets Bank 0
+    
     ; PORTB Code:
     ; CCP1CON on power up reset is all LOW
     ; INTCON on power up reset is all LOW
     CLRF 0x06 ; Setting PORTB on reset to LOW
+    
     ; PORTC Code:
     ; CCP1CON on power up reset is all LOW
     ; CCP2CON on power up reset is all LOW
@@ -52,99 +54,107 @@ Setup:
     
     BCF 0x03,6 ; Sets Bank 1
     BSF 0x03,5 ; Sets Bank 1
+    
     ; PORTB Code:
     ; OPTION_REG on power up reset is all HIGH
-    BSF 0x86 ; Setting TRISB on reset to HIGH, making PORTB an input
-    ; WPUB on power up reset is all HIGH
+    MOVLW 0xFF ; Sets all bits high for TRISB
+    MOVWF 0x86 ; Setting TRISB on reset to HIGH, making PORTB an input
+    CLRF 0x95 ; Sets WPUB bits on reset LOW
     ; ICOB on power up reset is all HIGH
+    
     ; PORTC Code:
     CLRF 0x9D ; Setting PSTRCON LOW
     CLRF 0x87 ; Setting TRISC LOW
     
     BSF 0x03,6 ; Sets Bank 2
     BCF 0x03,5 ; Sets Bank 2
+    
     ; PORTB Code:
     BSF 0x09,1 ; Setting bit 1 for CM2CON1 HIGH
     
     BSF 0x03,6 ; Sets Bank 3
     BSF 0x03,5 ; Sets Bank 3
+    
     ; PORTB Code:
     CLRF 0x89 ; Setting the ANSELH to LOW for the I/O to be digital
+    BCF 0x03, 6
+    BCF 0x03, 5
     
     goto Main
     
 Main:
     // main code goes here
-    MAIN:
+    BCF 0x03,6 ; Sets Bank 0
+    BCF 0x03,5 ; Sets Bank 0
+    
     ; Check switches from highest priority to lowest
-    BTFSC   0x06, 7        ; Checks if RB7 = 1
-    GOTO    DISPLAY_7       ; If RB7 = 1, go to Display 7
+    BTFSC   0x06, 7 ; Checks if RB7 = 1
+    GOTO    DISPLAY_7 ; If RB7 = 1, go to Display 7
 
-    BTFSC   0x06, 6        ; Checks if RB6 = 1
-    GOTO    DISPLAY_6       ; If RB6 = 1, go to Display 6
+    BTFSC   0x06, 6 ; Checks if RB6 = 1
+    GOTO    DISPLAY_6 ; If RB6 = 1, go to Display 6
 
-    BTFSC   0x06, 5        ; Checks if RB5 = 1
-    GOTO    DISPLAY_5       ; If RB5 = 1, go to Display 5
+    BTFSC   0x06, 5 ; Checks if RB5 = 1
+    GOTO    DISPLAY_5 ; If RB5 = 1, go to Display 5
 
-    BTFSC   0x06, 4        ; Checks if RB4 = 1
-    GOTO    DISPLAY_4       ; If RB4 = 1, go to Display 4
+    BTFSC   0x06, 4 ; Checks if RB4 = 1
+    GOTO    DISPLAY_4 ; If RB4 = 1, go to Display 4
 
-    BTFSC   0x06, 3        ; Checks if RB3 = 1
-    GOTO    DISPLAY_3       ; If RB3 = 1, go to Display 3
+    BTFSC   0x06, 3 ; Checks if RB3 = 1
+    GOTO    DISPLAY_3 ; If RB3 = 1, go to Display 3
 
-    BTFSC   0x06, 2        ; Checks if RB2 = 1
-    GOTO    DISPLAY_2       ; If RB2 = 1, go to Display 2
+    BTFSC   0x06, 2 ; Checks if RB2 = 1
+    GOTO    DISPLAY_2 ; If RB2 = 1, go to Display 2
 
-    BTFSC   0x06, 1        ; Checks if RB1 = 1
-    GOTO    DISPLAY_1       ; If RB1 = 1, go to Display 1
+    BTFSC   0x06, 1 ; Checks if RB1 = 1
+    GOTO    DISPLAY_1 ; If RB1 = 1, go to Display 1
 
-    BTFSC   0x06, 0        ; Checks if RB0 = 1
-    GOTO    DISPLAY_0       ; If RB0 = 1, go to Display 0
+    BTFSC   0x06, 0 ; Checks if RB0 = 1
+    GOTO    DISPLAY_0 ; If RB0 = 1, go to Display 0
 
-    ; No switches are active
-    ; Display "$"
-    MOVLW   '$'
-    MOVWF   0x07           ; Example display output port
-    GOTO    MAIN
+    ; If no switches are active
+    MOVLW   0x24 ; Display "$"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 ;Display Outputs
 DISPLAY_7:
-    MOVLW   '7'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x37 ; Display "7"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_6:
-    MOVLW   '6'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x36 ; Display "6"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_5:
-    MOVLW   '5'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x35 ; Display "5"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_4:
-    MOVLW   '4'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x34 ; Display "4"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_3:
-    MOVLW   '3'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x33 ; Display "3"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_2:
-    MOVLW   '2'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x32 ; Display "2"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_1:
-    MOVLW   '1'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x31 ; Display "1"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 
 DISPLAY_0:
-    MOVLW   '0'
-    MOVWF   0x07
-    GOTO    MAIN
+    MOVLW   0x30 ; Display "0"
+    MOVWF   0x07 ; Display output port
+    GOTO    Main
 End
