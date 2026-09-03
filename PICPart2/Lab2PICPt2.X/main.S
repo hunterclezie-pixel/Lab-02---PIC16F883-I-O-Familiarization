@@ -59,11 +59,10 @@ Setup:
     
     goto Main
     
-    
 Main:
     // main code goes here
     BCF 0x03,6 ; Sets Bank 0
     BCF 0x03,5 ; Sets Bank 0
-    INCF 0x06,0 ; Increment PORTB by 1
+    INCF 0x06,1 ; Increment PORTB by 1
     goto Main
 End
