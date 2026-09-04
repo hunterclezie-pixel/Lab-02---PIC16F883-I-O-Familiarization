@@ -130,7 +130,7 @@ Main:
     BTFSS 0x06,6 ; Checks Column 3 for '6' key being pressed
     BSF 0x20,6 ; Set status bit if '3' is pressed
     BTFSS 0x06,7 ; Checks Column 4 for 'B' key being pressed
-    BSF 0x21,3 ; Set status bit if '4' is pressed
+    BSF 0x21,3 ; Set status bit if 'B' is pressed
 
 ; Checks Row 1 of the 4x4 matrix
     BCF 0x03,6 ; Sets Bank 1
@@ -148,15 +148,6 @@ Main:
     BSF 0x20,3 ; Set status bit if '3' is pressed
     BTFSS 0x06,7 ; Checks Column 4 for 'A' key being pressed
     BSF 0x21,2 ; Set status bit if '4' is pressed
-
-; Sets all of TRISB rows Hi-Z before testing
-    BCF 0x03,6 ; Set Bank 1
-    BSF 0x03,5 ; Set Bank 1
-    MOVLW 0xF0 ; Set all rows to a High Impedance
-    MOVWF 0x86 ; Send W to PortB
-    BCF 0x03,6 ; Set Bank 0
-    BCF 0x03,5 ; Set Bank 0
-    
     
     GOTO Test_Hash
 
