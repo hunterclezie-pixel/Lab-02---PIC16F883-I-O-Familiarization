@@ -50,7 +50,7 @@ Setup:
     CLRF 0x07 ; Setting PORTC on reset to LOW
     ; RCSTA on power up reset is all LOW
     ; SSPCON on power up reset is all LOW
-    CLRF 0x10 ; Set T1CON LOW
+    ; T1CON on power up reset is all LOW
     
     BCF 0x03,6 ; Sets Bank 1
     BSF 0x03,5 ; Sets Bank 1
@@ -59,12 +59,12 @@ Setup:
     ; OPTION_REG on power up reset is all HIGH
     MOVLW 0xFF ; Sets all bits high for TRISB
     MOVWF 0x86 ; Setting TRISB on reset to HIGH, making PORTB an input
-    CLRF 0x95 ; Sets WPUB bits on reset LOW
+    CLRF 0x95 ; Sets WPUB bits on reset LOW, disabling pull-up
     ; ICOB on power up reset is all HIGH
     
     ; PORTC Code:
-    CLRF 0x9D ; Setting PSTRCON LOW
-    CLRF 0x87 ; Setting TRISC LOW
+    ; PSTRCON on power up reset is all LOW
+    CLRF 0x87 ; Setting TRISC on reset to LOW, making PORTC an output
     
     BSF 0x03,6 ; Sets Bank 2
     BCF 0x03,5 ; Sets Bank 2
