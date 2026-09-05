@@ -1,7 +1,7 @@
 // Hunter Clezie
-// RCET3373
-// First Program
-// Git url if you have one 
+// RCET3375
+// Lab2PICPt4
+// https://github.com/hunterclezie-pixel/Lab-02---PIC16F883-I-O-Familiarization.git
 
 ; PIC16F883 Configuration Bit Settings
 
